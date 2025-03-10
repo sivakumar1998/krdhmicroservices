@@ -20,4 +20,7 @@ spring:
    format_sql: true
   show-sql: true
   properties:
+   hibernate:
+    format_sql: true
+  
    

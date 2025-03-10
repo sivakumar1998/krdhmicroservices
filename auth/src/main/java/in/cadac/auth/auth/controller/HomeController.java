@@ -94,4 +94,9 @@ public class HomeController {
 		}
 		return remoteAddr;
 	}
+	@PostMapping("/testres")
+	public AuthResponse testResponseMapping(@RequestBody AuthResponse resp) {
+		System.err.println(resp.getTs());
+		return resp;
+	}
 }
