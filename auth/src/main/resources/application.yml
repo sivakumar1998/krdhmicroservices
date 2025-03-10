@@ -8,4 +8,16 @@ spring:
   active: preprod
  config:
   import: "optional:configserver:http://localhost:8071/"
- 
+ datasource:
+  url: jdbc:postgresql://localhost:5432/krdh_aua_db
+  username: postgres
+  password: root
+  driver-class-name: org.postgresql.Driver
+ jpa:
+  database-platform: org.hibernate.dialect.PostgreSQLDialect
+  hibernate:
+   ddl-auto: update
+   format_sql: true
+  show-sql: true
+  properties:
+   

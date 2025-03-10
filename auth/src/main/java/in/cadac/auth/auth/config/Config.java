@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "auth")
 public class Config {
 
+	private String cryptoUrl;
+
 	public String getCryptoUrl() {
 		return cryptoUrl;
 	}
@@ -14,7 +16,5 @@ public class Config {
 	public void setCryptoUrl(String cryptoUrl) {
 		this.cryptoUrl = cryptoUrl;
 	}
-
-	private String cryptoUrl;
 
 }

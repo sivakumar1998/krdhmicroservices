@@ -81,10 +81,18 @@ public class Uses {
 	public void setOtp(String otp) {
 		this.otp = otp;
 	}
-	
-	public String toString() {
-		return "Uses [pi=" + pi + ", pa=" + pa + ", pfa=" + pfa + ", bio=" + bio + ", pin=" + pin + ", otp=" + otp
-				+ "]";
+	public String getBt() {
+		return bt;
 	}
+	public void setBt(String bt) {
+		this.bt = bt;
+	}
+	@Override
+	public String toString() {
+		return "Uses [pi=" + pi + ", pa=" + pa + ", pfa=" + pfa + ", bio=" + bio + ", bt=" + bt + ", pin=" + pin
+				+ ", otp=" + otp + "]";
+	}
+	
+	
 
 }
