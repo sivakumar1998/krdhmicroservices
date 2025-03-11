@@ -1,5 +1,6 @@
 package in.cadac.auth.auth.controller;
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +14,13 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
+import feign.RetryableException;
 import in.cadac.auth.auth.config.Config;
 import in.cadac.auth.auth.domainobject.AuthRequest;
 import in.cadac.auth.auth.domainobject.AuthResponse;
 import in.cadac.auth.auth.domainobject.SignedRequest;
+import in.cadac.auth.auth.error.CryptoException;
+import in.cadac.auth.auth.error.DuplicateKeyException;
 import in.cadac.auth.auth.services.AuthRequestProcessor;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -67,7 +71,7 @@ public class HomeController {
 
 	@PostMapping(value = "/authrequest", produces = MediaType.APPLICATION_XML_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
 	public AuthResponse authRequest(@Valid @RequestBody AuthRequest auth, HttpServletRequest request)
-			throws JsonMappingException, JsonProcessingException {
+			throws JsonMappingException, JsonProcessingException, CryptoException, RetryableException, DuplicateKeyException {
 		String clientIP = getClientIp(request);
 		AuthResponse response=requestprocessor.processRequest(auth,clientIP);
 		return response;
@@ -94,7 +98,7 @@ public class HomeController {
 		}
 		return remoteAddr;
 	}
-	@PostMapping("/testres")
+	@PostMapping(value="/testres",produces =MediaType.APPLICATION_XML_VALUE, consumes = MediaType.APPLICATION_XML_VALUE )
 	public AuthResponse testResponseMapping(@RequestBody AuthResponse resp) {
 		System.err.println(resp.getTs());
 		return resp;

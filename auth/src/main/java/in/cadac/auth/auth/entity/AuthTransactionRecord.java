@@ -16,9 +16,10 @@ public class AuthTransactionRecord {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "authid")
-	private int authid;
+	private long authid;
 
-	@Column(name = "txn")
+	@Column(name = "txn",unique = true)
+	
 	private String txn;
 
 	@Column(name = "tid")
@@ -188,11 +189,11 @@ public class AuthTransactionRecord {
 		this.reference_no = reference_no;
 	}
 
-	public int getAuthid() {
+	public long getAuthid() {
 		return authid;
 	}
 
-	public void setAuthid(int authid) {
+	public void setAuthid(long authid) {
 		this.authid = authid;
 	}
 

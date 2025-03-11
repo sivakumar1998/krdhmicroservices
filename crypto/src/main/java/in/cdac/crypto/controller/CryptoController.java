@@ -32,5 +32,11 @@ public class CryptoController {
 	public CryptoPara getparameters() {
 		return para;
 	}
-
+	@PostMapping("/signlocal")
+	public String sign2(@RequestBody String plainxml) {
+//		String signedxml = service.signing(plainxml);
+		
+//		logger.info(signedxml);
+		return plainxml+"<signed/>";
+	}
 }

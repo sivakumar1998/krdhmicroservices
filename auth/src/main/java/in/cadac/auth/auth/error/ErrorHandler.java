@@ -11,6 +11,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import feign.RetryableException;
+
 @RestControllerAdvice()
 public class ErrorHandler {
 	private  Logger logger=LoggerFactory.getLogger(ErrorHandler.class);
@@ -22,6 +24,18 @@ public class ErrorHandler {
 	        );
 	        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
 	    }
+//	   RetryableException e
+	   
+	   @ExceptionHandler(RetryableException.class)
+	   public ResponseEntity<ErrorDto> handleRetryException(RetryableException ex) {
+	       ErrorDto error = new ErrorDto("Service temporarily unavailable", "503");
+	       return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(error);
+	   }
+	   @ExceptionHandler(DuplicateKeyException.class)
+	   public ResponseEntity<ErrorDto> handleRetryException(DuplicateKeyException ex) {
+	       ErrorDto error = new ErrorDto("Duplicate Transaction ID", "AUA-AUTH-11");
+	       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+	   }
 //	   @ExceptionHandler(MethodArgumentNotValidException.class)
 //	    public ResponseEntity<String> handleValidationException(MethodArgumentNotValidException ex) {
 //	        Map<String, String> errors = new HashMap<>();
