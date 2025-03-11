@@ -7,13 +7,13 @@ import in.cadac.auth.auth.domainobject.AuthResponse;
 import in.cadac.auth.auth.domainobject.SignedAuthRequest;
 import in.cadac.auth.auth.restconsumers.ASAClient;
 
-
 @Service
 public class ASACaller {
 	@Autowired
 	private ASAClient asaClient;
 
 	public AuthResponse getASAResponse(SignedAuthRequest request) {
-		return null;
+		return asaClient.callAsaService(request);
+
 	}
 }

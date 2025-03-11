@@ -37,6 +37,6 @@ public class CryptoController {
 //		String signedxml = service.signing(plainxml);
 		
 //		logger.info(signedxml);
-		return plainxml+"<signed/>";
+		return plainxml;
 	}
 }

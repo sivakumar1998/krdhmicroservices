@@ -10,6 +10,6 @@ import in.cadac.auth.auth.domainobject.SignedAuthRequest;
 @FeignClient(name = "asaservice", url = "http://localhost:9080")
 public interface ASAClient {
 
-	
+	@PostMapping(value = "asa/authrequest")
 	public AuthResponse callAsaService(@RequestBody SignedAuthRequest request);
 }
