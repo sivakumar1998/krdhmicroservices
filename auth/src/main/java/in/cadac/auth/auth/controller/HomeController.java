@@ -18,7 +18,7 @@ import feign.RetryableException;
 import in.cadac.auth.auth.config.Config;
 import in.cadac.auth.auth.domainobject.AuthRequest;
 import in.cadac.auth.auth.domainobject.AuthResponse;
-import in.cadac.auth.auth.domainobject.SignedRequest;
+import in.cadac.auth.auth.domainobject.SignedAuthRequest;
 import in.cadac.auth.auth.error.CryptoException;
 import in.cadac.auth.auth.error.DuplicateKeyException;
 import in.cadac.auth.auth.services.AuthRequestProcessor;
@@ -79,9 +79,9 @@ public class HomeController {
 	}
 
 //	@GetMapping(value = "/test",produces = MediaType.APPLICATION_XML_VALUE)
-	public SignedRequest test() throws JsonMappingException, JsonProcessingException {
+	public SignedAuthRequest test() throws JsonMappingException, JsonProcessingException {
 		XmlMapper mapper = new XmlMapper();
-		SignedRequest sr = mapper.readValue(xml, SignedRequest.class);
+		SignedAuthRequest sr = mapper.readValue(xml, SignedAuthRequest.class);
 		return sr;
 	}
 

@@ -8,7 +8,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
 
-public class SignedRequest extends AuthRequest{
+public class SignedAuthRequest extends AuthRequest{
 	@JacksonXmlElementWrapper(useWrapping = true)
 	@NotNull(message = "signature is must for signed xml")
 	@JsonProperty("Signature")
