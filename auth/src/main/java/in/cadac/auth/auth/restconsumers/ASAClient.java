@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import in.cadac.auth.auth.domainobject.AuthResponse;
 import in.cadac.auth.auth.domainobject.SignedAuthRequest;
 
-@FeignClient(name = "asaservice", url = "http://localhost:9080")
+@FeignClient(name = "asaauth")
 public interface ASAClient {
 
 	@PostMapping(value = "asa/authrequest")

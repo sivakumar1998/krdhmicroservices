@@ -10,3 +10,17 @@ spring:
   username: postgres
   password: root
   driver-class-name: org.postgresql.Driver
+  
+eureka:
+ client:
+  service-url:
+    defaultZone: http://localhost:8090/eureka/
+  register-with-eureka: true   # Ensures the service registers itself with Eureka
+  fetch-registry: true          # Ensures the service fetches Eureka registry
+ instance:
+  hostname: localhost           # Replace with actual hostname if needed
+uidai_auth_url:  https://rdpreprod.uidai.gov.in/uidauthserver/2.5/
+asa_lk: MIIWVkN0fKXYqnHtm8LImBxWphMTZFxt9qaFpRAsVqzUGsJOUjzF91E
+ac: STGCEG0001
+
+    

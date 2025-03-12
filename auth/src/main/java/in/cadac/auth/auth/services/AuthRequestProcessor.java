@@ -44,13 +44,17 @@ public class AuthRequestProcessor {
 
 			try {
 				logger.info(auth.getTxn());
+				
+				authrepository.save(recordBeforeTransfer);
+				auth.getMeta().setUdc(null);
+				auth.setSa(environment.getProperty("auacode"));
+				auth.setLk(environment.getProperty("aualk"));
 				XmlMapper xml = new XmlMapper();
 				String requestXml = xml.writeValueAsString(auth);
 				String signedxml = cryptocaller.cryptoCaller(requestXml);
 				System.err.println(signedxml);
 				SignedAuthRequest signedreq = xml.readValue(signedxml, SignedAuthRequest.class);
 				recordBeforeTransfer.setRequest_forward_time(LocalDateTime.now());
-				authrepository.save(recordBeforeTransfer);
 				response = asaCaller.getASAResponse(signedreq);
 				AuthTransactionRecord record = authrepository.findByTxn(response.getTxn());
 				AuthTransactionRecord finalRecord=persistAfterTransfer(record, response);
