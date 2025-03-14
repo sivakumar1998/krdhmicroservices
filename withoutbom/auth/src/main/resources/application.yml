@@ -1,0 +1,41 @@
+uidlength: 12
+virtualidlength: 16
+uidtokenlength: 72
+server:
+ port: 8080
+
+spring:
+ application:
+  name: auth
+ profiles:
+  active: preprod
+ config:
+  import: "optional:configserver:http://localhost:8071/"
+ datasource:
+  url: jdbc:postgresql://localhost:5432/krdh_aua_db
+  username: postgres
+  password: root
+  driver-class-name: org.postgresql.Driver
+ jpa:
+  database-platform: org.hibernate.dialect.PostgreSQLDialect
+  hibernate:
+   ddl-auto: update
+   format_sql: true
+  show-sql: true
+  properties:
+   hibernate:
+    format_sql: true
+ 
+eureka:
+ client:
+  service-url:
+    defaultZone: http://localhost:8090/eureka/
+  register-with-eureka: true   # Ensures the service registers itself with Eureka
+  fetch-registry: true          # Ensures the service fetches Eureka registry
+ instance:
+  hostname: localhost           # Replace with actual hostname if needed
+
+aualk: MBqAAv_H94q8hy-iNnbsrrZv4e7LXqjztNa3crZGUPfKglMv8D5OJuk
+auacode: STGCEG0001
+   
+   

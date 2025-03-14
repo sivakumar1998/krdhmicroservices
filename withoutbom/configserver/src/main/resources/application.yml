@@ -1,0 +1,15 @@
+server:
+ port: 8071  # Config Server runs on port 8888
+
+spring:
+ application:
+  name: configserver
+ cloud:
+  config:
+   server:
+    git:
+     uri: file:///home/krdhadmin/config    # Windows
+# uri: file:///home/your-user/config-repo  # Linux/macOS
+    default-label: main  # Branch to use
+    clone-on-start: true  # Ensures repo is cloned at startup
+    search-paths: subdirectory  # (Optional) If configs are in a subfolder

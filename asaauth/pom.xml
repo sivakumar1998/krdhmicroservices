@@ -15,6 +15,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../krdhbom/pom.xml</relativePath>
 	</parent>
+	 <packaging>jar</packaging>
 	<groupId>in.cdac.asa</groupId>
 	<artifactId>asaauth</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -33,6 +34,7 @@
 		<tag />
 		<url />
 	</scm>
+	
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -74,6 +76,12 @@
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
 		<dependency>
+      <groupId>com.mysql</groupId>
+      <artifactId>mysql-connector-j</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+
+		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
@@ -85,19 +93,32 @@
 		</dependency>
 	</dependencies>
 
-	<build>
+	 <build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>3.4.3</version>
 				<configuration>
-
 					<image>
 						<name>burra1998/${project.artifactId}:v1</name>
 					</image>
 				</configuration>
 			</plugin>
 		</plugins>
-	</build>
-
+	</build> 
+<!-- <build> 
+		<plugins>
+			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>jib-maven-plugin</artifactId>
+				<version>${jib.version}</version>
+				<configuration>
+					<to>
+						<image>burra1998/${project.artifactId}:v1</image>
+					</to>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build> -->
 </project>

@@ -1,0 +1,48 @@
+server:
+ port: 8081
+spring:
+ application:
+  name: crypto
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  health:
+    readiness-state:
+      enabled: true
+    liveness-state:
+      enabled: true
+  endpoint:
+    shutdown:
+      access: unrestricted
+    health:
+      probes:
+        enabled: true
+  info:
+    env:
+      enabled: true
+  metrics:
+    tags:
+      application: ${spring.application.name}
+ 
+crypto:  
+ ac: STGCEG0001
+ certIdentifier: 2730942401094b5c
+ certPath: 0
+ certAlias: 0000840000_sign_30_03_2026_cer
+ certExpiryDate: 2026-03-29
+ certType: sign
+ provider: Luna
+ slotPassword: Cegblr@1234
+ 
+eureka:
+ client:
+  service-url:
+    defaultZone: http://localhost:8090/eureka/
+  register-with-eureka: true   # Ensures the service registers itself with Eureka
+  fetch-registry: true          # Ensures the service fetches Eureka registry
+ instance:
+  hostname: localhost           # Replace with actual hostname if needed
+    
