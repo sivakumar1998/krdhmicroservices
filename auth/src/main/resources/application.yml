@@ -10,7 +10,7 @@ spring:
  profiles:
   active: preprod
  config:
-  import: "optional:configserver:http://localhost:8071/"
+  import: "optional:configserver:http://172.17.0.1:8071/"
  datasource:
   url: jdbc:postgresql://localhost:5432/krdh_aua_db
   username: postgres

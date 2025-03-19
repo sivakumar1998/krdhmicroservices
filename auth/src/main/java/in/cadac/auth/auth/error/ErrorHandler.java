@@ -28,12 +28,17 @@ public class ErrorHandler {
 	   
 	   @ExceptionHandler(RetryableException.class)
 	   public ResponseEntity<ErrorDto> handleRetryException(RetryableException ex) {
-	       ErrorDto error = new ErrorDto("Service temporarily unavailable", "503");
+	       ErrorDto error = new ErrorDto(ex.getMessage(), "503");
 	       return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(error);
 	   }
 	   @ExceptionHandler(DuplicateKeyException.class)
 	   public ResponseEntity<ErrorDto> handleRetryException(DuplicateKeyException ex) {
 	       ErrorDto error = new ErrorDto("Duplicate Transaction ID", "AUA-AUTH-11");
+	       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+	   }
+	   @ExceptionHandler(CryptoException.class)
+	   public ResponseEntity<ErrorDto> handleCryptoException(CryptoException ex) {
+	       ErrorDto error = new ErrorDto(ex.getMessage(), "AUA-AUTH-09");
 	       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
 	   }
 //	   @ExceptionHandler(MethodArgumentNotValidException.class)

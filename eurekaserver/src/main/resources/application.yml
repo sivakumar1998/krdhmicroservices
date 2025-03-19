@@ -1,9 +1,25 @@
 server:
- port: 8090
+  port: 8090
 
 eureka:
- instance:
-  hostname: localhost
- client:
-  register-with-eureka: false  # Do not register this server with another Eureka
-  fetch-registry: false        # Do not fetch registry from another Eureka
+  instance:
+    hostname: localhost
+  client:
+    register-with-eureka: false  # Do not register this server with another Eureka
+    fetch-registry: false        # Do not fetch registry from another Eureka
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  health:
+    readiness-state:
+      enabled: true
+    liveness-state:
+      enabled: true
+  endpoint:
+    health:
+      probes:
+        enabled: true
+ 

@@ -6,7 +6,7 @@ spring:
  config:
   import: "optional:configserver:http://localhost:8071/"
  datasource:
-  url: jdbc:postgresql://127.0.0.1:5432/krdh_aua_db
+  url: jdbc:postgresql://localhost:5432/krdh_aua_db
   #url: jdbc:postgresql://postgres-container:5432/krdh_aua_db
   #url: jdbc:mysql://localhost:3306/krdh_aua_db
   username: postgres

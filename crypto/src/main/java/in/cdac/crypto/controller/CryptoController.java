@@ -23,6 +23,7 @@ public class CryptoController {
 
 	@PostMapping("/sign")
 	public String sign(@RequestBody String plainxml) {
+		logger.info(plainxml);
 		String signedxml = service.signing(plainxml);
 		logger.info(signedxml);
 		return signedxml;

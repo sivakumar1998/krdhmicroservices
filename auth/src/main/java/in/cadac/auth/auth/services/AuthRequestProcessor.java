@@ -17,6 +17,7 @@ import in.cadac.auth.auth.domainobject.AuthRequest;
 import in.cadac.auth.auth.domainobject.AuthResponse;
 import in.cadac.auth.auth.domainobject.SignedAuthRequest;
 import in.cadac.auth.auth.entity.AuthTransactionRecord;
+import in.cadac.auth.auth.error.CryptoException;
 import in.cadac.auth.auth.error.DuplicateKeyException;
 import in.cadac.auth.auth.repositories.AuthTransactionRepository;
 import jakarta.validation.Valid;
@@ -34,7 +35,7 @@ public class AuthRequestProcessor {
 	private ASACaller asaCaller;
 
 	public AuthResponse processRequest(@Valid AuthRequest auth, String clientIP)
-			throws RetryableException, DuplicateKeyException {
+			throws RetryableException, DuplicateKeyException, CryptoException {
 		AuthResponse response = null;
 		// TODO Auto-generated method stub
 		if (authrepository.existsByTxn(auth.getTxn())) {
@@ -53,7 +54,12 @@ public class AuthRequestProcessor {
 				String requestXml = xml.writeValueAsString(auth);
 				String signedxml = cryptocaller.cryptoCaller(requestXml);
 				System.err.println(signedxml);
-				SignedAuthRequest signedreq = xml.readValue(signedxml, SignedAuthRequest.class);
+				SignedAuthRequest signedreq=null;
+				try {
+					signedreq = xml.readValue(signedxml, SignedAuthRequest.class);
+				}catch(IllegalArgumentException ile) {
+					throw new CryptoException("Unable to get Signed xml");
+				}
 				recordBeforeTransfer.setRequest_forward_time(LocalDateTime.now());
 				response = asaCaller.getASAResponse(signedreq);
 				AuthTransactionRecord record = authrepository.findByTxn(response.getTxn());
