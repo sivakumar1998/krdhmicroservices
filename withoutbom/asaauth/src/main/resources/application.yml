@@ -23,6 +23,7 @@ eureka:
   fetch-registry: true          # Ensures the service fetches Eureka registry
  instance:
   hostname: localhost           # Replace with actual hostname if needed
+  preferIpAddress: true
 uidai_auth_url:  https://rdpreprod.uidai.gov.in/uidauthserver/2.5/
 asa_lk: MIIWVkN0fKXYqnHtm8LImBxWphMTZFxt9qaFpRAsVqzUGsJOUjzF91E
 ac: STGCEG0001

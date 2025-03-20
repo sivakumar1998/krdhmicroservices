@@ -34,7 +34,7 @@ eureka:
   fetch-registry: true          # Ensures the service fetches Eureka registry
  instance:
   hostname: localhost           # Replace with actual hostname if needed
-
+  preferIpAddress: true
 aualk: MBqAAv_H94q8hy-iNnbsrrZv4e7LXqjztNa3crZGUPfKglMv8D5OJuk
 auacode: STGCEG0001
    
