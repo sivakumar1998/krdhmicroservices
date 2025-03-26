@@ -47,7 +47,7 @@ public AuthResponse processAuthRequestTest(@RequestBody SignedAuthRequest reques
 	return authresponse;
 }
 @PostMapping(value="/authrequest")
-public AuthResponse processAuthRequest(@RequestBody SignedAuthRequest request) throws JsonMappingException, JsonProcessingException {
+public AuthResponse processAuthRequest( String request) throws JsonMappingException, JsonProcessingException {
 	AuthResponse authresponse=requestProcessor.processAuthRequest(request);
 	return authresponse;
 }

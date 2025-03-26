@@ -12,7 +12,7 @@ public class ASACaller {
 	@Autowired
 	private ASAClient asaClient;
 
-	public AuthResponse getASAResponse(SignedAuthRequest request) {
+	public AuthResponse getASAResponse(String request) {
 		return asaClient.callAsaService(request);
 
 	}
