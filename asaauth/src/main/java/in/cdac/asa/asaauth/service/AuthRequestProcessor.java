@@ -3,7 +3,6 @@ package in.cdac.asa.asaauth.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
@@ -35,9 +34,10 @@ public class AuthRequestProcessor {
 			url.append("0/0/");
 		}
 		url.append(env.getProperty("asa_lk"));
-		RestTemplate restTemplate=new RestTemplate();
-		AuthResponse response=restTemplate.postForObject(url.toString(), requestxml, AuthResponse.class);
-		return response;
+//		RestTemplate restTemplate=new RestTemplate();
+//		AuthResponse response=restTemplate.postForObject(url.toString(), requestxml, AuthResponse.class);
+//		return response;
+		return null;
 	}
 	public SignedAuthRequest validateSignedXml(@Valid SignedAuthRequest req) {
 		return req;

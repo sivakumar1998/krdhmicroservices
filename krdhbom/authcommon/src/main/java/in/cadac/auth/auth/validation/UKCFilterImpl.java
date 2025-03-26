@@ -7,7 +7,12 @@ public class UKCFilterImpl implements ConstraintValidator<UKCFilter, String> {
 
 	@Override
 	public boolean isValid(String value, ConstraintValidatorContext context) {
-		int colonIndex = value.indexOf(":");
+		int colonIndex =-1;
+		
+		if(value!=null) {
+			colonIndex= value.indexOf(":");
+		}
+		
 		if (colonIndex >0) {
 			String textBeforeColon = value.substring(0, colonIndex);
 			if (textBeforeColon.startsWith("U") && textBeforeColon.charAt(0) == 'U') {

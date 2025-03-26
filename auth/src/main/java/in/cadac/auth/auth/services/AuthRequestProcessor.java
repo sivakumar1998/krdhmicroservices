@@ -15,6 +15,7 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import feign.RetryableException;
 import in.cadac.auth.auth.domainobject.AuthRequest;
 import in.cadac.auth.auth.domainobject.AuthResponse;
+import in.cadac.auth.auth.domainobject.SignedAuthRequest;
 import in.cadac.auth.auth.entity.AuthTransactionRecord;
 import in.cadac.auth.auth.error.CryptoException;
 import in.cadac.auth.auth.error.DuplicateKeyException;
@@ -52,7 +53,7 @@ public class AuthRequestProcessor {
 				String requestXml = xml.writeValueAsString(auth);
 				String signedxml = cryptocaller.cryptoCaller(requestXml);
 				System.err.println(signedxml);
-				
+				SignedAuthRequest req=xml.readValue(signedxml, SignedAuthRequest.class);
 				recordBeforeTransfer.setRequest_forward_time(LocalDateTime.now());
 				response = asaCaller.getASAResponse(signedxml);
 				AuthTransactionRecord record = authrepository.findByTxn(response.getTxn());
