@@ -1,7 +1,5 @@
 package in.cadac.auth.auth.domainobject;
 
-import javax.xml.transform.Source;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 
@@ -10,7 +8,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
 
-public class SignedAuthRequest extends AuthRequest implements Source{
+public class SignedAuthRequest extends AuthRequest {
 	@JacksonXmlElementWrapper(useWrapping = true)
 	@NotNull(message = "signature is must for signed xml")
 	@JsonProperty("Signature")
@@ -45,17 +43,7 @@ public class SignedAuthRequest extends AuthRequest implements Source{
 		return "SignedRequest [signature=" + signature + "]";
 	}
 
-	@Override
-	public void setSystemId(String systemId) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public String getSystemId() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	
 	

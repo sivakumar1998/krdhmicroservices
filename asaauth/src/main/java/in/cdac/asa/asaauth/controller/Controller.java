@@ -2,11 +2,8 @@ package in.cdac.asa.asaauth.controller;
 
 import java.io.IOException;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +18,7 @@ import in.cadac.auth.auth.domainobject.AuthResponse;
 import in.cadac.auth.auth.domainobject.SignedAuthRequest;
 import in.cdac.asa.asaauth.service.AuthRequestProcessor;
 import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Valid;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
@@ -62,17 +60,8 @@ public class Controller {
 	}
 
 	@PostMapping(value = "/authrequest")
-	public AuthResponse processAuthRequest(@RequestBody String request) throws SAXException, IOException {
-		XmlMapper mapper=new XmlMapper();
-		SignedAuthRequest requestObject=mapper.readValue(request, SignedAuthRequest.class);
-		Set<ConstraintViolation<SignedAuthRequest>> violations =validator.validate(requestObject);
-//		if (!violations.isEmpty()) {
-//            // Collect validation errors
-//            String errors = violations.stream()
-//                    .map(ConstraintViolation::getMessage)
-//                    .collect(Collectors.joining(", "));
-//            throw new MethodArgumentNotValidException();
-//        }
+	public AuthResponse processAuthRequest(@Valid @RequestBody SignedAuthRequest request) throws SAXException, IOException {
+		
 		AuthResponse authresponse = requestProcessor.processAuthRequest(request);
 		return authresponse;
 	}

@@ -10,11 +10,11 @@ public class SignatureValue {
 	private String signatureValue;
 
 	public String getSignatureValue() {
-		return signatureValue;
+		return signatureValue.replace("\r", "&#13;");
 	}
 
 	public void setSignatureValue(String signatureValue) {
-		this.signatureValue = signatureValue;
+		this.signatureValue = signatureValue.replace("&#13;", "\r");
 	}
 
 	@Override

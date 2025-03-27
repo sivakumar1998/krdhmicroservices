@@ -11,5 +11,5 @@ import in.cadac.auth.auth.domainobject.SignedAuthRequest;
 public interface ASAClient {
 
 	@PostMapping(value = "asa/authrequest")
-	public AuthResponse callAsaService(@RequestBody String request);
+	public AuthResponse callAsaService(@RequestBody SignedAuthRequest reuest);
 }
