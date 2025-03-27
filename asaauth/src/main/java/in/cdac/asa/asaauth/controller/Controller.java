@@ -60,8 +60,8 @@ public class Controller {
 	}
 
 	@PostMapping(value = "/authrequest")
-	public AuthResponse processAuthRequest(@Valid @RequestBody SignedAuthRequest request) throws SAXException, IOException {
-		
+	public AuthResponse processAuthRequest(@Valid @RequestBody String request) throws SAXException, IOException {
+//		System.err.println(request.getSignature().getKeyInfo().getX509Data().getX509Certificate().getX509Certificate());
 		AuthResponse authresponse = requestProcessor.processAuthRequest(request);
 		return authresponse;
 	}

@@ -55,7 +55,7 @@ public class AuthRequestProcessor {
 				System.err.println(signedxml);
 				SignedAuthRequest req=xml.readValue(signedxml, SignedAuthRequest.class);
 				recordBeforeTransfer.setRequest_forward_time(LocalDateTime.now());
-				response = asaCaller.getASAResponse(req);
+				response = asaCaller.getASAResponse(signedxml);
 				AuthTransactionRecord record = authrepository.findByTxn(response.getTxn());
 				AuthTransactionRecord finalRecord=persistAfterTransfer(record, response);
 				finalRecord.setResponse_forward_time(LocalDateTime.now());
