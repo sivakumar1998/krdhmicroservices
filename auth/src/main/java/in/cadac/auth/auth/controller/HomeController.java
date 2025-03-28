@@ -1,6 +1,5 @@
 package in.cadac.auth.auth.controller;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,11 +70,12 @@ public class HomeController {
 
 	@PostMapping(value = "/authrequest", produces = MediaType.APPLICATION_XML_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
 	public AuthResponse authRequest(@Valid @RequestBody AuthRequest auth, HttpServletRequest request)
-			throws JsonMappingException, JsonProcessingException, CryptoException, RetryableException, DuplicateKeyException {
+			throws JsonMappingException, JsonProcessingException, CryptoException, RetryableException,
+			DuplicateKeyException {
 		String clientIP = getClientIp(request);
-		AuthResponse response=requestprocessor.processRequest(auth,clientIP);
+		AuthResponse response = requestprocessor.processRequest(auth, clientIP);
 		return response;
-		
+
 	}
 
 //	@GetMapping(value = "/test",produces = MediaType.APPLICATION_XML_VALUE)
@@ -89,6 +89,18 @@ public class HomeController {
 	public String testulr() {
 		return config.getCryptoUrl();
 	}
+
+	@PostMapping(value = "/testres", produces = MediaType.APPLICATION_XML_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
+	public AuthResponse testResponseMapping(@RequestBody AuthResponse resp) {
+		System.err.println(resp.getTs());
+		return resp;
+	}
+	@PostMapping(value="/getsignedxml", produces = MediaType.APPLICATION_XML_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
+public String getSignedXml(@RequestBody AuthRequest req) throws JsonProcessingException {
+	XmlMapper mapper=new XmlMapper();
+	String reqxml=mapper.writeValueAsString(req);
+	return requestprocessor.getSignedXml(reqxml);
+}
 	private String getClientIp(HttpServletRequest request) {
 		String remoteAddr = "";
 		try {
@@ -97,10 +109,5 @@ public class HomeController {
 			logger.info("Error in fetching ip details");
 		}
 		return remoteAddr;
-	}
-	@PostMapping(value="/testres",produces =MediaType.APPLICATION_XML_VALUE, consumes = MediaType.APPLICATION_XML_VALUE )
-	public AuthResponse testResponseMapping(@RequestBody AuthResponse resp) {
-		System.err.println(resp.getTs());
-		return resp;
 	}
 }

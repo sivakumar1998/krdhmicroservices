@@ -79,8 +79,7 @@ public class AuthRequest {
 	private Hmac hmac;
 
 	
-	@JacksonXmlText
-	private String authData;
+	
 
 	public String getRc() {
 		return rc;
@@ -186,21 +185,16 @@ public class AuthRequest {
 		this.hmac = hmac;
 	}
 
-	public String getAuth() {
-		return authData;
-	}
-
-	public void setAuth(String auth) {
-		this.authData = auth;
-	}
-
 	@Override
 	public String toString() {
 		return "AuthRequest [uid=" + uid + ", rc=" + rc + ", tid=" + tid + ", ac=" + ac + ", sa=" + sa + ", ver=" + ver
 				+ ", txn=" + txn + ", lk=" + lk + ", uses=" + uses + ", meta=" + meta + ", skey=" + skey + ", data="
-				+ data + ", hmac=" + hmac + ", auth=" + authData + "]";
+				+ data + ", hmac=" + hmac + "]";
 	}
 
+	
+
+	
 	
 
 	

@@ -145,4 +145,8 @@ public class AuthRequestProcessor {
 //		return "";
 		
 	}
+
+	public String getSignedXml(String reqxml) {
+		return cryptocaller.cryptoCaller(reqxml);
+	}
 }
