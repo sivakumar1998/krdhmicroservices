@@ -77,7 +77,15 @@ public class HomeController {
 		return response;
 
 	}
+	@PostMapping(value = "/authrequestObject", produces = MediaType.APPLICATION_XML_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
+	public AuthResponse authRequestObject(@Valid @RequestBody AuthRequest auth, HttpServletRequest request)
+			throws JsonMappingException, JsonProcessingException, CryptoException, RetryableException,
+			DuplicateKeyException {
+		String clientIP = getClientIp(request);
+		AuthResponse response = requestprocessor.processRequestObject(auth, clientIP);
+		return response;
 
+	}
 //	@GetMapping(value = "/test",produces = MediaType.APPLICATION_XML_VALUE)
 	public SignedAuthRequest test() throws JsonMappingException, JsonProcessingException {
 		XmlMapper mapper = new XmlMapper();

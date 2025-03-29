@@ -15,7 +15,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../krdhbom/pom.xml</relativePath>
 	</parent>
-	 <packaging>jar</packaging>
+	<packaging>jar</packaging>
 	<groupId>in.cdac.asa</groupId>
 	<artifactId>asaauth</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -34,7 +34,7 @@
 		<tag />
 		<url />
 	</scm>
-	
+
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -76,12 +76,6 @@
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
 		<dependency>
-      <groupId>com.mysql</groupId>
-      <artifactId>mysql-connector-j</artifactId>
-      <scope>runtime</scope>
-    </dependency>
-
-		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
@@ -93,7 +87,7 @@
 		</dependency>
 	</dependencies>
 
-	 <build>
+	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -106,8 +100,8 @@
 				</configuration>
 			</plugin>
 		</plugins>
-	</build> 
-<!-- <build> 
+	</build>
+	<!-- <build> 
 		<plugins>
 			<plugin>
 				<groupId>com.google.cloud.tools</groupId>
