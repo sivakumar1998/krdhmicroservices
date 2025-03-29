@@ -1,5 +1,7 @@
 package in.cadac.auth.auth.domainobject;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
@@ -8,7 +10,12 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 @JacksonXmlRootElement(localName = "Uses")
-public class Uses {
+public class Uses implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@JacksonXmlProperty(isAttribute = true)
 	@NotEmpty(message = "pi is mandatory")
 	@Pattern(regexp = "^[yn]$", message = "Value must be 'y' or 'n'")

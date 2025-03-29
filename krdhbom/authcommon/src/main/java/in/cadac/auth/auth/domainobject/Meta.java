@@ -1,5 +1,7 @@
 package in.cadac.auth.auth.domainobject;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
@@ -7,7 +9,12 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 @JacksonXmlRootElement(localName = "Meta")
-public class Meta {
+public class Meta implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@JacksonXmlProperty(isAttribute = true)
 //	@NotEmpty(message = "udc is mandatory")
 	 @Pattern(regexp = "^([0-9A-Fa-f]{2}-){5}[0-9A-Fa-f]{2}$", message = "Invalid udc format. Expected format: XX-XX-XX-XX-XX-XX")

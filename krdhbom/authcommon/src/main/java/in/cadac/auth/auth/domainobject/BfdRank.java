@@ -1,10 +1,16 @@
 package in.cadac.auth.auth.domainobject;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
 @JacksonXmlRootElement(localName = "BfdRank")
-public class BfdRank {
+public class BfdRank implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@JacksonXmlProperty(isAttribute = true, localName = "pos")
 	private String pos;
 	@JacksonXmlProperty(isAttribute = true, localName = "val")

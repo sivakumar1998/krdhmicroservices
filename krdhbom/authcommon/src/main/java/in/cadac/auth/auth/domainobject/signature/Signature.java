@@ -1,11 +1,18 @@
 package in.cadac.auth.auth.domainobject.signature;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
 
 @JacksonXmlRootElement(localName = "Signature")
-public class Signature {
+public class Signature implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@JsonProperty(value ="SignedInfo" )
 	private SignedInfo signedinfo;
 	

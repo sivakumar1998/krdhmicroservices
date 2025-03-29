@@ -1,5 +1,7 @@
 package in.cadac.auth.auth.domainobject;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
@@ -8,8 +10,12 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 
 @JacksonXmlRootElement(localName = "Data")
-public class Data {
+public class Data implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@JacksonXmlProperty(isAttribute = true)
 	@Pattern(regexp = "^[XP]$", message = "Value must be either 'X' or 'P'.")
 	private String type;

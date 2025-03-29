@@ -1,5 +1,6 @@
 package in.cadac.auth.auth.domainobject;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZonedDateTime;
@@ -10,7 +11,11 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import in.cadac.auth.auth.domainobject.signature.Signature;
 
 @JacksonXmlRootElement(localName = "AuthRes")
-public class AuthResponse {
+public class AuthResponse implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@JacksonXmlProperty(isAttribute = true, localName = "ret")
 	private String ret;
 	@JacksonXmlProperty(isAttribute = true, localName = "code")

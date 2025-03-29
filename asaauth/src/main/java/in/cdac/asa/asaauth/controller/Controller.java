@@ -45,13 +45,8 @@ public class Controller {
 			+ "D3FldiJ+5blU2Z2tSPUnsJSL9i/vmjh0AfLqZw==</SignatureValue>\n" + "    </Signature>\n" + "</AuthRes>";
 	@Autowired
 	private AuthRequestProcessor requestProcessor;
-	private final Validator validator;
 
-	public Controller() {
-		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-		this.validator = (Validator) factory.getValidator();
-	}
-
+	
 	@PostMapping(value = "/authrequesttest")
 	public AuthResponse processAuthRequestTest(@RequestBody SignedAuthRequest request)
 			throws JsonMappingException, JsonProcessingException {
@@ -63,12 +58,22 @@ public class Controller {
 	@PostMapping(value = "/authrequest", produces = MediaType.APPLICATION_XML_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
 	public AuthResponse processAuthRequest( @RequestBody String request) throws SAXException, IOException {
 //		System.err.println(request.getSignature().getKeyInfo().getX509Data().getX509Certificate().getX509Certificate());
+	System.err.println("in /authrequest");
 		AuthResponse authresponse = requestProcessor.processAuthRequest(request);
 		return authresponse;
 	}
 	@PostMapping(value="/authrequestObject", produces = MediaType.APPLICATION_XML_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
-	public AuthResponse processSignedAuthRequest(@Valid @RequestBody SignedAuthRequest req) throws JsonProcessingException {
+	public AuthResponse processSignedAuthRequest( @RequestBody SignedAuthRequest req) throws JsonProcessingException {
+		System.err.println("in /authrequestObject");
 		AuthResponse response= requestProcessor.processAuthRequest(req);
+		return response;
+	}
+	@PostMapping(value="/authrequestObjectFromString", produces = MediaType.APPLICATION_XML_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
+	public AuthResponse processSignedAuthRequestFromString(@RequestBody String req) throws JsonProcessingException {
+		System.err.println("in /authrequestObjectFromString");
+		XmlMapper mapper=new XmlMapper();
+		SignedAuthRequest signedrequest=mapper.readValue(req,SignedAuthRequest.class);
+		AuthResponse response= requestProcessor.processAuthRequest(signedrequest,req);
 		return response;
 	}
 }

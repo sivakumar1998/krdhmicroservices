@@ -39,8 +39,6 @@ public class Test {
 //
 //
 //		XmlMapper xmlMapper=new XmlMapper();
-//		xmlMapper.setDefaultPropertyInclusion(JsonInclude.Value.construct(JsonInclude.Include.NON_EMPTY, JsonInclude.Include.NON_EMPTY));
-//		xmlMapper.configure(ToXmlGenerator.Feature.WRITE_XML_DECLARATION, true);
 //
 //		AuthResponse res=xmlMapper.readValue(resxml, AuthResponse.class);
 //		System.out.println(res.getSignature().getSignatureValue().getSignatureValue());

@@ -1,5 +1,7 @@
 package in.cadac.auth.auth.domainobject;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
@@ -11,7 +13,12 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 @JacksonXmlRootElement(localName = "Auth")
-public class AuthRequest {
+public class AuthRequest implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Pattern(regexp = "^(\\d{12}|\\d{16}|[0-9a-zA-Z/=+\\\\]{72})$", message = "Value must be either 12 or 16 digits, or exactly 72 characters long containing only digits, letters, and the characters /=+\\")
 	@JacksonXmlProperty(isAttribute = true)
 	@NotEmpty(message = "uid is mandatory")
@@ -49,7 +56,7 @@ public class AuthRequest {
 
 	@JacksonXmlProperty(isAttribute = true)
 	@NotEmpty(message = "lk is mandatory")
-	@Pattern(regexp = "^[a-zA-Z0-9\\-]{1,64}$", message = "Value must be an alpha-numeric string of 1 to 64 characters.")
+	@Pattern(regexp = "^[a-zA-Z0-9\\-_]{1,64}$", message = "Value must be an alpha-numeric string of 1 to 64 characters.")
 	private String lk;
 
 	@JsonProperty("Uses")

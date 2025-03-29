@@ -13,7 +13,7 @@ import jakarta.validation.Valid;
 public interface ASAClient {
 
 	@PostMapping(value = "asa/authrequest", produces = MediaType.APPLICATION_XML_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
-	public AuthResponse callAsaService(@RequestBody String reuest);
-	@PostMapping(value="/authrequestObject", produces = MediaType.APPLICATION_XML_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
+	public AuthResponse callAsaService(@RequestBody String request);
+	@PostMapping(value="asa/authrequestObject", produces = MediaType.APPLICATION_XML_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
 	public AuthResponse callAsaServiceObject(@Valid @RequestBody SignedAuthRequest req);
 }

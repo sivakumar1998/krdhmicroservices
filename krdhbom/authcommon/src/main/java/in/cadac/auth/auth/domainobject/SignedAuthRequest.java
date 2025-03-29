@@ -1,5 +1,7 @@
 package in.cadac.auth.auth.domainobject;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 
@@ -8,7 +10,11 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
 
-public class SignedAuthRequest extends AuthRequest {
+public class SignedAuthRequest extends AuthRequest implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@JacksonXmlElementWrapper(useWrapping = true)
 	@NotNull(message = "signature is must for signed xml")
 	@JsonProperty("Signature")
