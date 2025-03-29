@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -59,10 +60,15 @@ public class Controller {
 		return authresponse;
 	}
 
-	@PostMapping(value = "/authrequest")
-	public AuthResponse processAuthRequest(@Valid @RequestBody String request) throws SAXException, IOException {
+	@PostMapping(value = "/authrequest", produces = MediaType.APPLICATION_XML_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
+	public AuthResponse processAuthRequest( @RequestBody String request) throws SAXException, IOException {
 //		System.err.println(request.getSignature().getKeyInfo().getX509Data().getX509Certificate().getX509Certificate());
 		AuthResponse authresponse = requestProcessor.processAuthRequest(request);
 		return authresponse;
+	}
+	@PostMapping(value="/authrequestObject", produces = MediaType.APPLICATION_XML_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
+	public AuthResponse processSignedAuthRequest(@Valid @RequestBody SignedAuthRequest req) throws JsonProcessingException {
+		AuthResponse response= requestProcessor.processAuthRequest(req);
+		return response;
 	}
 }

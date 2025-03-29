@@ -16,16 +16,16 @@ public class Signature {
 	private KeyInfo keyInfo;
 
 	
-	@JacksonXmlText
-	private String signature;
+//	@JacksonXmlText
+//	private String signature;
 
-	public String getSignature() {
-		return signature;
-	}
-
-	public void setSignature(String signature) {
-		this.signature = signature;
-	}
+//	public String getSignature() {
+//		return signature;
+//	}
+//
+//	public void setSignature(String signature) {
+//		this.signature = signature;
+//	}
 
 	public SignedInfo getSignedinfo() {
 		return signedinfo;
@@ -54,8 +54,14 @@ public class Signature {
 	@Override
 	public String toString() {
 		return "Signature [signedinfo=" + signedinfo + ", signatureValue=" + signatureValue + ", keyInfo=" + keyInfo
-				+ ", signature=" + signature + "]";
+				+ "]";
 	}
+
+//	@Override
+//	public String toString() {
+//		return "Signature [signedinfo=" + signedinfo + ", signatureValue=" + signatureValue + ", keyInfo=" + keyInfo
+//				+ ", signature=" + signature + "]";
+//	}
 
 
 }

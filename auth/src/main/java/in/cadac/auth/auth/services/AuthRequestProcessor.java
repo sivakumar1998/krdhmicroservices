@@ -68,7 +68,40 @@ public class AuthRequestProcessor {
 		}
 		return response;
 	}
+	public AuthResponse processRequestObject( AuthRequest auth, String clientIP)
+			throws RetryableException, DuplicateKeyException, CryptoException {
+		AuthResponse response = null;
+		// TODO Auto-generated method stub
+		if (authrepository.existsByTxn(auth.getTxn())) {
+			throw new DuplicateKeyException("Duplicate Transaction Id");
+		} else {
+			AuthTransactionRecord recordBeforeTransfer = persistBeforeTransfer(auth, clientIP);
 
+			try {
+				logger.info(auth.getTxn());
+				
+				authrepository.save(recordBeforeTransfer);
+				auth.getMeta().setUdc(null);
+				auth.setSa(environment.getProperty("auacode"));
+				auth.setLk(environment.getProperty("aualk"));
+				XmlMapper xml = new XmlMapper();
+				String requestXml = xml.writeValueAsString(auth);
+				String signedxml = cryptocaller.cryptoCaller(requestXml);
+				SignedAuthRequest req=xml.readValue(signedxml, SignedAuthRequest.class);
+				recordBeforeTransfer.setRequest_forward_time(LocalDateTime.now());
+				response = asaCaller.getASAResponseObject(req);
+				AuthTransactionRecord record = authrepository.findByTxn(response.getTxn());
+				AuthTransactionRecord finalRecord=persistAfterTransfer(record, response);
+				finalRecord.setResponse_forward_time(LocalDateTime.now());
+				authrepository.save(finalRecord);
+				
+			} catch (JsonProcessingException e) {
+				// TODO Auto-generated catch block
+				e.getMessage();
+			}
+		}
+		return response;
+	}
 	private AuthTransactionRecord persistBeforeTransfer(AuthRequest auth, String clientIP) {
 		AuthTransactionRecord record = new AuthTransactionRecord();
 		record.setTxn(auth.getTxn());

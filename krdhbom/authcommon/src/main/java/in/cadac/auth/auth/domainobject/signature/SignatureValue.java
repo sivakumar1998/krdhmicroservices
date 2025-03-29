@@ -5,16 +5,20 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
 
 @JacksonXmlRootElement(localName = "SignatureValue")
 public class SignatureValue {
-
+	private char c=13;
 	@JacksonXmlText()
 	private String signatureValue;
 
 	public String getSignatureValue() {
-		return signatureValue.replace("\r", "&#13;");
+		return signatureValue;
+//				.replaceAll("@", "&#13;");
+//				.replace("\r", "&#13;");
 	}
 
 	public void setSignatureValue(String signatureValue) {
-		this.signatureValue = signatureValue.replace("&#13;", "\r");
+		this.signatureValue = signatureValue;
+//				.replaceAll("&#13;", "@");
+//				.replace("&#13;", "\r");
 	}
 
 	@Override
