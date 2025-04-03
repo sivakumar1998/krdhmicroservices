@@ -30,6 +30,7 @@
 	</properties>
 	<modules>
 		<module>authcommon</module>
+		<module>otpcommon</module>
 		
 	</modules>
 	<packaging>pom</packaging>
