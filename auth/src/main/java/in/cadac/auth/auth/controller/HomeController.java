@@ -1,5 +1,7 @@
 package in.cadac.auth.auth.controller;
 
+import in.cadac.auth.auth.error.ExpiredClientLkException;
+import in.cadac.auth.auth.error.LKNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,11 +72,10 @@ public class HomeController {
 
 	@PostMapping(value = "/authrequest", produces = MediaType.APPLICATION_XML_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
 	public AuthResponse authRequest(@Valid @RequestBody AuthRequest auth, HttpServletRequest request)
-			throws JsonMappingException, JsonProcessingException, CryptoException, RetryableException,
-			DuplicateKeyException {
+            throws JsonMappingException, JsonProcessingException, CryptoException, RetryableException,
+            DuplicateKeyException, ExpiredClientLkException, LKNotFoundException {
 		String clientIP = getClientIp(request);
-		AuthResponse response = requestprocessor.processRequest(auth, clientIP);
-		return response;
+        return requestprocessor.processRequest(auth, clientIP);
 
 	}
 	@PostMapping(value = "/authrequestObject", produces = MediaType.APPLICATION_XML_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)

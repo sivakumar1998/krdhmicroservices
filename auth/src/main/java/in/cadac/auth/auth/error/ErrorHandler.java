@@ -41,6 +41,16 @@ public class ErrorHandler {
 	       ErrorDto error = new ErrorDto(ex.getMessage(), "AUA-AUTH-09");
 	       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
 	   }
+	   @ExceptionHandler(LKNotFoundException.class)
+	   public ResponseEntity<ErrorDto> handleLKNotFoundException(LKNotFoundException ex) {
+		   ErrorDto error = new ErrorDto(ex.getMessage(), "AUA-C-11");
+		   return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+	   }
+
+	   public ResponseEntity<ErrorDto> handleExpiredClientLkException(ExpiredClientLkException ex) {
+		   ErrorDto error = new ErrorDto(ex.getMessage(), "AUA-AUTH-15");
+		   return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+	   }
 //	   @ExceptionHandler(MethodArgumentNotValidException.class)
 //	    public ResponseEntity<String> handleValidationException(MethodArgumentNotValidException ex) {
 //	        Map<String, String> errors = new HashMap<>();

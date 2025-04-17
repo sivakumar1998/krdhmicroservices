@@ -22,7 +22,7 @@ public class ClientLicenseKey {
 	private String ac;
 
 	@Column(name = "client_lk")
-	private String client_lk;
+	private String clientLk;
 
 	@Column(name = "is_active")
 	private boolean is_active;
@@ -83,11 +83,11 @@ public class ClientLicenseKey {
 	}
 
 	public String getClient_lk() {
-		return client_lk;
+		return clientLk;
 	}
 
 	public void setClient_lk(String client_lk) {
-		this.client_lk = client_lk;
+		this.clientLk = clientLk;
 	}
 
 	public boolean isIs_active() {

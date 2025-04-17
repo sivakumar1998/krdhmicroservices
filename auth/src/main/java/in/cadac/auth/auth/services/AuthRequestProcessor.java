@@ -3,6 +3,9 @@ package in.cadac.auth.auth.services;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
+import in.cadac.auth.auth.entity.ClientLicenseKey;
+import in.cadac.auth.auth.error.ExpiredClientLkException;
+import in.cadac.auth.auth.error.LKNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +30,8 @@ public class AuthRequestProcessor {
 	@Autowired
 	private AuthTransactionRepository authrepository;
 	@Autowired
+	private ClientLKValidator lkValidator;
+	@Autowired
 	private CryptoCaller cryptocaller;
 	@Autowired
 	private Environment environment;
@@ -34,39 +39,49 @@ public class AuthRequestProcessor {
 	private ASACaller asaCaller;
 
 	public AuthResponse processRequest( AuthRequest auth, String clientIP)
-			throws RetryableException, DuplicateKeyException, CryptoException {
-		AuthResponse response = null;
-		// TODO Auto-generated method stub
-		if (authrepository.existsByTxn(auth.getTxn())) {
-			throw new DuplicateKeyException("Duplicate Transaction Id");
-		} else {
-			AuthTransactionRecord recordBeforeTransfer = persistBeforeTransfer(auth, clientIP);
+            throws RetryableException, DuplicateKeyException, CryptoException, ExpiredClientLkException, LKNotFoundException {
+		ClientLicenseKey licenseKey= lkValidator.getClientLicenseKey(auth.getLk());
+		if(licenseKey!=null&&lkValidator.isActive(auth.getLk(),auth.getSa(),licenseKey)) {
+			AuthResponse response = null;
 
-			try {
-				logger.info(auth.getTxn());
-				
-				authrepository.save(recordBeforeTransfer);
-				auth.getMeta().setUdc(null);
-				auth.setSa(environment.getProperty("auacode"));
-				auth.setLk(environment.getProperty("aualk"));
-				XmlMapper xml = new XmlMapper();
-				String requestXml = xml.writeValueAsString(auth);
-				String signedxml = cryptocaller.cryptoCaller(requestXml);
-				System.err.println(signedxml);
-				SignedAuthRequest req=xml.readValue(signedxml, SignedAuthRequest.class);
-				recordBeforeTransfer.setRequest_forward_time(LocalDateTime.now());
-				response = asaCaller.getASAResponse(signedxml);
-				AuthTransactionRecord record = authrepository.findByTxn(response.getTxn());
-				AuthTransactionRecord finalRecord=persistAfterTransfer(record, response);
-				finalRecord.setResponse_forward_time(LocalDateTime.now());
-				authrepository.save(finalRecord);
-				
-			} catch (JsonProcessingException e) {
-				// TODO Auto-generated catch block
-				e.getMessage();
+			if (authrepository.existsByTxn(auth.getTxn())) {
+				throw new DuplicateKeyException("Duplicate Transaction Id");
+			} else {
+				AuthTransactionRecord recordBeforeTransfer = persistBeforeTransfer(auth, clientIP);
+
+				try {
+					logger.info(auth.getTxn());
+
+					authrepository.save(recordBeforeTransfer);
+					auth.getMeta().setUdc(null);
+					auth.setSa(environment.getProperty("auacode"));
+					auth.setLk(environment.getProperty("aualk"));
+					XmlMapper xml = new XmlMapper();
+					String requestXml = xml.writeValueAsString(auth);
+					String signedxml = cryptocaller.cryptoCaller(requestXml);
+					System.err.println(signedxml);
+					SignedAuthRequest req = xml.readValue(signedxml, SignedAuthRequest.class);
+					recordBeforeTransfer.setRequest_forward_time(LocalDateTime.now());
+					response = asaCaller.getASAResponse(signedxml);
+					AuthTransactionRecord record = authrepository.findByTxn(response.getTxn());
+					AuthTransactionRecord finalRecord = persistAfterTransfer(record, response);
+					finalRecord.setResponse_forward_time(LocalDateTime.now());
+					authrepository.save(finalRecord);
+
+				} catch (JsonProcessingException e) {
+					// TODO Auto-generated catch block
+					e.getMessage();
+				}
+			}
+			return response;
+		}else{
+			if(licenseKey!=null&&!licenseKey.isIs_active()){
+				throw new ExpiredClientLkException("Client License Key is not active");
+			}else{
+				throw new LKNotFoundException("Client License Key not found");
 			}
 		}
-		return response;
+
 	}
 	public AuthResponse processRequestObject( AuthRequest auth, String clientIP)
 			throws RetryableException, DuplicateKeyException, CryptoException {

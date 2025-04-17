@@ -28,7 +28,7 @@ public class SignedAuthRequest extends AuthRequest implements Serializable{
 		this.signature = signature;
 	}
 
-	public void setAuthreqdata(@Valid AuthRequest auth) {
+	public void setAuthreqdata( AuthRequest auth) {
 		this.setAc(auth.getAc());
 		this.setData(auth.getData());
 		this.setHmac(auth.getHmac());
