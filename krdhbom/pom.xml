@@ -31,8 +31,9 @@
 	<modules>
 		<module>authcommon</module>
 		<module>otpcommon</module>
-		
-	</modules>
+        <module>digitalsignverification</module>
+
+    </modules>
 	<packaging>pom</packaging>
 	<dependencies>
 		<dependency>

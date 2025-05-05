@@ -38,8 +38,8 @@ public class AuthRequestProcessor {
 	@Autowired
 	private ASACaller asaCaller;
 
-	public AuthResponse processRequest( AuthRequest auth, String clientIP)
-            throws RetryableException, DuplicateKeyException, CryptoException, ExpiredClientLkException, LKNotFoundException {
+	public AuthResponse processRequest( AuthRequest auth, String clientIP){
+//            throws RetryableException, DuplicateKeyException, CryptoException, ExpiredClientLkException, LKNotFoundException {
 		ClientLicenseKey licenseKey= lkValidator.getClientLicenseKey(auth.getLk());
 		if(licenseKey!=null&&lkValidator.isActive(auth.getLk(),auth.getSa(),licenseKey)) {
 			AuthResponse response = null;
